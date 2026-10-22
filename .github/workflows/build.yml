@@ -26,7 +26,7 @@ jobs:
           pip install -r requirements.txt pyinstaller
 
       - name: Build single EXE
-        run: pyinstaller InvoicePrinter.spec --noconfirm
+        run: pyinstaller --onefile --windowed --name InvoicePrinter --icon app.ico invoice_printer.py
 
       - name: Check output
         run: dir dist
@@ -34,10 +34,11 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: InvoicePrinter
-          path: dist/InvoicePrinter.exe
+          path: dist/*.exe
+          if-no-files-found: error
 
       - name: Attach to GitHub Release (tags only)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/InvoicePrinter.exe
+          files: dist/*.exe
