@@ -1,0 +1,23 @@
+# Build output
+build/
+dist/
+installer_output/
+*.spec
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Local logs and machine-specific config
+error_log.txt
+invoice_printer_config.json
+
+# Generated files
+app.ico
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db

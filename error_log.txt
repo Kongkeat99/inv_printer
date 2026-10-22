@@ -1,0 +1,43 @@
+
+[2026-10-20 17:53:24]
+Traceback (most recent call last):
+  File "C:\Users\TAC52520617\AppData\Local\Python\pythoncore-3.14-64\Lib\tkinter\__init__.py", line 2114, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "C:\Users\TAC52520617\rpa_web_filler\inv_printer\invoice_printer.py", line 1821, in open_file
+    os.startfile(item["path"])  # Windows only
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified: '//192.168.54.11/import-export/Export/ADIDAS/Adidas 2026/INV AND PL FOR CLEARANCE\\09 Sep\\C265601-UAE-SEA.xlsx'
+
+[2026-10-20 17:53:29]
+Traceback (most recent call last):
+  File "C:\Users\TAC52520617\AppData\Local\Python\pythoncore-3.14-64\Lib\tkinter\__init__.py", line 2114, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "C:\Users\TAC52520617\rpa_web_filler\inv_printer\invoice_printer.py", line 1821, in open_file
+    os.startfile(item["path"])  # Windows only
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified: '//192.168.54.11/import-export/Export/ADIDAS/Adidas 2026/INV AND PL FOR CLEARANCE\\09 Sep\\C265601-UAE-SEA.xlsx'
+
+[2026-10-20 17:53:39]
+Traceback (most recent call last):
+  File "C:\Users\TAC52520617\AppData\Local\Python\pythoncore-3.14-64\Lib\tkinter\__init__.py", line 2114, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "C:\Users\TAC52520617\rpa_web_filler\inv_printer\invoice_printer.py", line 1300, in <lambda>
+    self.tree.bind("<Double-1>", lambda _e: self.open_file())
+                                            ~~~~~~~~~~~~~~^^
+  File "C:\Users\TAC52520617\rpa_web_filler\inv_printer\invoice_printer.py", line 1821, in open_file
+    os.startfile(item["path"])  # Windows only
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified: '//192.168.54.11/import-export/Export/ADIDAS/Adidas 2026/INV AND PL FOR CLEARANCE\\09 Sep\\C265601-UAE-SEA.xlsx'
+
+[2026-10-21 11:50:23]
+Traceback (most recent call last):
+  File "C:\Users\TAC52520617\AppData\Local\Python\pythoncore-3.14-64\Lib\tkinter\__init__.py", line 2114, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "C:\Users\TAC52520617\rpa_web_filler\inv_printer\invoice_printer.py", line 2161, in open_file
+    os.startfile(item["path"])  # Windows only
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified: '//192.168.54.11/import-export/Export/ADIDAS/Adidas 2026/INV AND PL FOR CLEARANCE\\09 Sep\\C265601-UAE-SEA.xlsx'

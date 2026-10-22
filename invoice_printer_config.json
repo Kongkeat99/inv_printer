@@ -1,0 +1,49 @@
+{
+  "root_folder": "//192.168.54.11/import-export/Export/ADIDAS/Adidas 2026/INV AND PL FOR CLEARANCE",
+  "target_folder_name": "inv&pl",
+  "extensions": [
+    ".xlsx",
+    ".xlsm",
+    ".xls"
+  ],
+  "sheet_include": [
+    "^INV",
+    "^PL"
+  ],
+  "sheet_exclude": [
+    "BKK",
+    "^ERP"
+  ],
+  "copies": 1,
+  "confirm_before_print": true,
+  "printer": "\\\\192.168.54.48\\HP LaserJet P2035(NEW)",
+  "watch_folder": "//192.168.54.11/import-export/Export/ADIDAS/Adidas 2026/INV AND PL FOR CLEARANCE",
+  "watch_name_regex": "",
+  "watch_interval_sec": 5,
+  "auto_print_enabled": false,
+  "conditional_sheets": [
+    "^INV-1",
+    "^PL-1",
+    "^INV-2",
+    "^PL-2"
+  ],
+  "skip_duplicate_sheets": true,
+  "skip_numbered_copies": true,
+  "strict_printer": true,
+  "print_pdf_files": false,
+  "pdf_extensions": [
+    ".pdf"
+  ],
+  "pdf_target_folder_name": "",
+  "pdf_sumatra_silent": false,
+  "pdf_sumatra_extra": "",
+  "pdf_viewer_path": "",
+  "print_one_job_per_file": true,
+  "font_fixes": {
+    "Time New Roman": "Times New Roman",
+    "Times New Roman ": "Times New Roman"
+  },
+  "pdf_layout_printer": "",
+  "pdf_engine": "printer",
+  "all_variants": true
+}

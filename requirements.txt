@@ -1,0 +1,5 @@
+pywin32
+openpyxl
+pypdf
+pyinstaller
+Pillow
