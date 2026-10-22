@@ -1,4 +1,4 @@
-name: Build Invoice Printer
+name: Build Invoice Printer EXE
 
 on:
   push:
@@ -25,22 +25,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt pyinstaller
 
-      - name: Build EXE with PyInstaller
+      - name: Build single EXE
         run: pyinstaller InvoicePrinter.spec --noconfirm
 
-      - name: Build installer with Inno Setup
-        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss'
+      - name: Check output
+        run: dir dist
 
-      - name: Upload build files
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: InvoicePrinter
-          path: |
-            dist/**
-            Output/**
+          path: dist/InvoicePrinter.exe
 
       - name: Attach to GitHub Release (tags only)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: Output/*.exe
+          files: dist/InvoicePrinter.exe
