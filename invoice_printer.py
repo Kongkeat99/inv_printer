@@ -115,6 +115,9 @@ DEFAULT_CONFIG = {
     # "printer" falls back to "export" automatically if that printer is missing or fails.
     "pdf_engine": "printer",
     "all_variants": False,                # checkbox "All sheets": print INV, INV-1 ... INV-n without typing -1, -2
+    # checkbox "Print duplicate INV + PL": True = ALSO print the sheets that are normally skipped as duplicates
+    # (Excel copies INV (2), PL (2) ... and INV/PL sheets with the same content).  False = skip them (default).
+    "print_duplicates": False,
 }
 
 JOB_LOCK = threading.Lock()   # only one Excel job at a time (manual, batch or auto)
@@ -641,7 +644,10 @@ def drop_duplicates(picked, cfg, get_grid):
     """picked sheet names -> (kept, dupes).  `dupes` is [(name, duplicate_of)].
     1) "(n)" copies (INV, INV (2), INV (3)) -> only the first is printed; INV-1 / INV-2 are different  [skip_numbered_copies]
     2) identical content (same invoice no. + same lines), INV vs INV, PL vs PL           [skip_duplicate_sheets]
-    The first one in workbook order always wins."""
+    The first one in workbook order always wins.
+    cfg["print_duplicates"] = True turns both rules off: every picked sheet is kept, nothing is reported as a duplicate."""
+    if cfg.get("print_duplicates", False):
+        return list(picked), []
     dupes = []
     if cfg.get("skip_numbered_copies", True):
         picked, dupes = drop_numbered_copies(picked, get_grid)
@@ -1545,6 +1551,13 @@ class App:
         ttk.Checkbutton(opts, text="All sheets – print INV, INV-1, INV-2 … INV-n (blank ones skipped), no need to type -1, -2",
                         variable=self.all_var, command=self.on_all_toggle).pack(side="left")
         self.all_chk = opts.winfo_children()[-1]   # the "All sheets" checkbox (disabled in PDF mode)
+        self.dup_var = tk.BooleanVar(value=bool(self.cfg.get("print_duplicates", False)))
+        opts2 = ttk.Frame(self.root)           # own row: the row above is already full
+        opts2.pack(fill="x", padx=16)
+        self.dup_chk = ttk.Checkbutton(opts2, text="Print duplicate INV + PL too – Excel copies INV (2), PL (2) … "
+                                                   "and same-content sheets (off = duplicates are skipped)",
+                                       variable=self.dup_var, command=self.on_dup_toggle)
+        self.dup_chk.pack(side="left")
         self.pdf_var = tk.BooleanVar(value=bool(self.cfg.get("print_pdf_files", False)))
         ttk.Checkbutton(opts, text="Print PDF files (search .pdf) instead of Excel",
                         variable=self.pdf_var, command=self.on_pdf_toggle).pack(side="left", padx=(20, 0))
@@ -1579,6 +1592,7 @@ class App:
         self.btn_print.configure(text=self.print_btn_text())          # PDF mode remembered from last time
         if self.pdf_mode():
             self.all_chk.configure(state="disabled")
+            self.dup_chk.configure(state="disabled")
         self.btn_print.pack(side="left")
         self.btn_print_all = ttk.Button(actions, text="Print ALL found", command=self.do_print_many,
                                         state="disabled")
@@ -1811,6 +1825,7 @@ class App:
         self.btn_print.configure(text=self.print_btn_text())
         try:
             self.all_chk.configure(state="disabled" if self.pdf_mode() else "normal")
+            self.dup_chk.configure(state="disabled" if self.pdf_mode() else "normal")
         except Exception:
             pass
         self.results = []
@@ -1825,6 +1840,14 @@ class App:
     def on_all_toggle(self):
         self.cfg["all_variants"] = bool(self.all_var.get())
         save_config(self.cfg)
+        if self.get_query():
+            self.search()
+
+    def on_dup_toggle(self):
+        """Checkbox "Print duplicate INV + PL": also print INV (2) / PL (2) and same-content sheets."""
+        self.cfg["print_duplicates"] = bool(self.dup_var.get())
+        save_config(self.cfg)
+        self.plan.clear()          # cached plans were built with the old rule
         if self.get_query():
             self.search()
 
